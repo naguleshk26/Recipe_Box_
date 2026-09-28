@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add a new recipe to RecipeBox with ingredients, preparation time, and cooking steps.">
+    <title>Add / Edit Recipe – RecipeBox</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Main Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">🍲</span>
+                <span>RecipeBox</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="recipes.html" class="nav-link">Recipes</a></li>
+                <li><a href="add-recipe.html" class="nav-link active">+ Add Recipe</a></li>
+                <li><a href="meal-plan.html" class="nav-link">Meal Planner</a></li>
+                <li><a href="shopping-list.html" class="nav-link">Shopping List</a></li>
+                <li><a href="favourites.html" class="nav-link">Favourites</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="/swagger-ui.html" target="_blank" class="nav-link" style="color: var(--secondary); font-weight: 600;">Swagger Docs ↗</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <div class="page-header" style="max-width: 800px; margin: 0 auto 2rem;">
+            <div class="page-title-group">
+                <h1 id="page-heading">Add New Recipe</h1>
+                <p>Fill out the details below to add your culinary creation to RecipeBox</p>
+            </div>
+            <a href="recipes.html" class="btn btn-secondary">← Back to Recipes</a>
+        </div>
+
+        <div class="form-card">
+            <form id="recipe-form">
+                <input type="hidden" id="edit-recipe-id" value="">
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label class="form-label" for="title">Recipe Name <span class="required">*</span></label>
+                    <input type="text" id="title" class="form-control" placeholder="e.g. Vegetable Fried Rice, Tomato Pasta" required>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label class="form-label" for="description">Short Description</label>
+                    <input type="text" id="description" class="form-control" placeholder="e.g. A quick, flavorful home-style dish suitable for dinner">
+                </div>
+
+                <!-- Cuisine, Prep & Cook Time -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="cuisine">Cuisine <span class="required">*</span></label>
+                        <select id="cuisine" class="form-control" required>
+                            <option value="">Select Cuisine</option>
+                            <option value="Indian">Indian</option>
+                            <option value="South Indian">South Indian</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Continental">Continental</option>
+                            <option value="Mexican">Mexican</option>
+                            <option value="American">American</option>
+                            <option value="Mediterranean">Mediterranean</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="prepTime">Prep Time (mins) <span class="required">*</span></label>
+                        <input type="number" id="prepTime" class="form-control" min="0" placeholder="15" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cookingTime">Cooking Time (mins) <span class="required">*</span></label>
+                        <input type="number" id="cookingTime" class="form-control" min="0" placeholder="20" required>
+                    </div>
+                </div>
+
+                <!-- Ingredients Dynamic Builder -->
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <label class="form-label" style="margin-bottom: 0;">Ingredients List <span class="required">*</span></label>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Exact quantities are needed for the shopping list</span>
+                    </div>
+
+                    <div class="ingredients-builder" id="ingredients-container">
+                        <!-- Dynamic Ingredient Rows inserted here -->
+                    </div>
+
+                    <button type="button" class="btn btn-secondary btn-sm" id="btn-add-ingredient">
+                        + Add Ingredient
+                    </button>
+                </div>
+
+                <!-- Cooking Steps -->
+                <div class="form-group">
+                    <label class="form-label" for="steps">Preparation & Cooking Steps <span class="required">*</span></label>
+                    <textarea id="steps" class="form-control" rows="6" placeholder="1. Boil pasta with salt.&#10;2. Sauté minced garlic in olive oil.&#10;3. Add tomatoes and simmer.&#10;4. Toss pasta and serve hot." required></textarea>
+                </div>
+
+                <!-- Favourite checkbox -->
+                <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem;">
+                    <input type="checkbox" id="favourite" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                    <label for="favourite" style="cursor: pointer; font-size: 0.95rem; font-weight: 600;">
+                        Mark as Favourite (♥)
+                    </label>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <a href="recipes.html" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-lg" id="btn-submit-recipe">
+                        💾 Save Recipe
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div><strong>RecipeBox</strong> – Personal Recipe & Meal Planner</div>
+            <div>Built with Java Spring Boot, MySQL, HTML5 & Vanilla JavaScript</div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeIdToEdit = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const addBtn = document.getElementById('btn-add-ingredient');
+            if (addBtn) {
+                addBtn.addEventListener('click', () => addIngredientRow());
+            }
+
+            if (recipeIdToEdit) {
+                document.getElementById('page-heading').textContent = 'Edit Recipe';
+                document.getElementById('btn-submit-recipe').textContent = '💾 Update Recipe';
+                document.getElementById('edit-recipe-id').value = recipeIdToEdit;
+                loadRecipeForEditing(recipeIdToEdit);
+            } else {
+                // Add two initial blank rows for convenience
+                addIngredientRow('Rice', 2, 'cups');
+                addIngredientRow('Onion', 1, 'piece');
+            }
+
+            setupFormSubmit();
+        });
+
+        function addIngredientRow(name = '', qty = '', unit = '') {
+            const container = document.getElementById('ingredients-container');
+            const row = document.createElement('div');
+            row.className = 'ingredient-row';
+            row.innerHTML = `
+                <input type="text" class="form-control ing-name" placeholder="Ingredient name (e.g. Tomato)" value="${escapeHtml(name)}" required>
+                <input type="number" step="any" min="0.01" class="form-control ing-qty" placeholder="Qty" value="${qty || ''}" required>
+                <input type="text" class="form-control ing-unit" placeholder="Unit (e.g. cups, pieces, tbsp, g)" value="${escapeHtml(unit)}" required>
+                <button type="button" class="btn-remove-row" title="Remove Ingredient" onclick="removeIngredientRow(this)">✕</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeIngredientRow(btn) {
+            const container = document.getElementById('ingredients-container');
+            if (container.children.length <= 1) {
+                showToast('A recipe must have at least one ingredient!', 'error');
+                return;
+            }
+            btn.closest('.ingredient-row').remove();
+        }
+
+        async function loadRecipeForEditing(id) {
+            try {
+                const recipe = await apiRequest(`/recipes/${id}`);
+                document.getElementById('title').value = recipe.title;
+                document.getElementById('description').value = recipe.description || '';
+                document.getElementById('cuisine').value = recipe.cuisine;
+                document.getElementById('prepTime').value = recipe.prepTime;
+                document.getElementById('cookingTime').value = recipe.cookingTime;
+                document.getElementById('steps').value = recipe.steps;
+                document.getElementById('favourite').checked = !!recipe.favourite;
+
+                // Load ingredients
+                const container = document.getElementById('ingredients-container');
+                container.innerHTML = '';
+                if (recipe.ingredients && recipe.ingredients.length > 0) {
+                    recipe.ingredients.forEach(ing => {
+                        addIngredientRow(ing.ingredientName, ing.quantity, ing.unit);
+                    });
+                } else {
+                    addIngredientRow();
+                }
+            } catch (err) {
+                showToast('Failed to load recipe: ' + err.message, 'error');
+            }
+        }
+
+        function setupFormSubmit() {
+            const form = document.getElementById('recipe-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const id = document.getElementById('edit-recipe-id').value;
+                const title = document.getElementById('title').value.trim();
+                const description = document.getElementById('description').value.trim();
+                const cuisine = document.getElementById('cuisine').value.trim();
+                const prepTime = parseInt(document.getElementById('prepTime').value);
+                const cookingTime = parseInt(document.getElementById('cookingTime').value);
+                const steps = document.getElementById('steps').value.trim();
+                const favourite = document.getElementById('favourite').checked;
+
+                // Collect ingredients
+                const rows = document.querySelectorAll('.ingredient-row');
+                const ingredients = [];
+
+                for (const row of rows) {
+                    const ingName = row.querySelector('.ing-name').value.trim();
+                    const ingQty = parseFloat(row.querySelector('.ing-qty').value);
+                    const ingUnit = row.querySelector('.ing-unit').value.trim();
+
+                    if (!ingName) {
+                        showToast('Please enter all ingredient names', 'error');
+                        return;
+                    }
+                    if (isNaN(ingQty) || ingQty <= 0) {
+                        showToast('Quantity must be greater than zero for all ingredients', 'error');
+                        return;
+                    }
+                    if (!ingUnit) {
+                        showToast('Please specify a unit for each ingredient', 'error');
+                        return;
+                    }
+
+                    ingredients.push({
+                        ingredientName: ingName,
+                        quantity: ingQty,
+                        unit: ingUnit
+                    });
+                }
+
+                if (ingredients.length === 0) {
+                    showToast('Please add at least one ingredient!', 'error');
+                    return;
+                }
+
+                const payload = {
+                    title,
+                    description,
+                    cuisine,
+                    prepTime,
+                    cookingTime,
+                    steps,
+                    favourite,
+                    ingredients
+                };
+
+                try {
+                    if (id) {
+                        await apiRequest(`/recipes/${id}`, {
+                            method: 'PUT',
+                            body: JSON.stringify(payload)
+                        });
+                        showToast('Recipe updated successfully!', 'success');
+                    } else {
+                        await apiRequest('/recipes', {
+                            method: 'POST',
+                            body: JSON.stringify(payload)
+                        });
+                        showToast('Recipe created successfully!', 'success');
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = 'recipes.html';
+                    }, 800);
+                } catch (err) {
+                    showToast(err.message, 'error');
+                }
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, m => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[m]);
+        }
+    </script>
+</body>
+</html>

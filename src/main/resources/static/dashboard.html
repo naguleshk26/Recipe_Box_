@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RecipeBox Dashboard. View total recipes, favourites, planned meals and upcoming schedule.">
+    <title>Dashboard – RecipeBox</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Main Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">🍲</span>
+                <span>RecipeBox</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="recipes.html" class="nav-link">Recipes</a></li>
+                <li><a href="add-recipe.html" class="nav-link">+ Add Recipe</a></li>
+                <li><a href="meal-plan.html" class="nav-link">Meal Planner</a></li>
+                <li><a href="shopping-list.html" class="nav-link">Shopping List</a></li>
+                <li><a href="favourites.html" class="nav-link">Favourites</a></li>
+                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                <li><a href="/swagger-ui.html" target="_blank" class="nav-link" style="color: var(--secondary); font-weight: 600;">Swagger Docs ↗</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <div class="page-header">
+            <div class="page-title-group">
+                <h1>Overview & Dashboard</h1>
+                <p>Welcome back! Here's a snapshot of your culinary activity and upcoming meals.</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+                <a href="add-recipe.html" class="btn btn-primary">+ Add Recipe</a>
+                <a href="meal-plan.html" class="btn btn-secondary">📅 Open Planner</a>
+            </div>
+        </div>
+
+        <!-- 4 Summary Stat Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon icon-recipes">🍳</div>
+                <div class="stat-info">
+                    <div class="stat-num" id="count-total-recipes">0</div>
+                    <div class="stat-label">Total Recipes</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-favs">♥</div>
+                <div class="stat-info">
+                    <div class="stat-num" id="count-fav-recipes">0</div>
+                    <div class="stat-label">Favourite Recipes</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-meals">📅</div>
+                <div class="stat-info">
+                    <div class="stat-num" id="count-planned-meals">0</div>
+                    <div class="stat-label">Planned Meals</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-ingredients">🥗</div>
+                <div class="stat-info">
+                    <div class="stat-num" id="count-ingredients">0</div>
+                    <div class="stat-label">Ingredients Tracked</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Planned Meals Section -->
+        <div class="shopping-card" style="max-width: 100%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <div>
+                    <h2 class="brand-font" style="font-size: 1.5rem;">Upcoming Planned Meals</h2>
+                    <p style="font-size: 0.88rem;">Your scheduled meals for the coming days</p>
+                </div>
+                <a href="shopping-list.html" class="btn btn-outline-primary btn-sm">🛒 Consolidated Shopping List</a>
+            </div>
+
+            <table class="shopping-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Meal Slot</th>
+                        <th>Recipe Title</th>
+                        <th>Cuisine</th>
+                        <th>Preparation</th>
+                    </tr>
+                </thead>
+                <tbody id="upcoming-meals-body">
+                    <!-- Populated by dashboard.js -->
+                </tbody>
+            </table>
+
+            <div id="upcoming-empty" style="display: none; text-align: center; padding: 3rem 1rem;">
+                <p>No upcoming meals scheduled.</p>
+                <a href="meal-plan.html" class="btn btn-primary btn-sm" style="margin-top: 0.75rem;">Plan Meals Now 📅</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div><strong>RecipeBox</strong> – Personal Recipe & Meal Planner</div>
+            <div>Built with Java Spring Boot, MySQL, HTML5 & Vanilla JavaScript</div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your favourite recipes collection in RecipeBox. Easily access your top dishes.">
+    <title>♥ Favourite Recipes – RecipeBox</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Main Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">🍲</span>
+                <span>RecipeBox</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="recipes.html" class="nav-link">Recipes</a></li>
+                <li><a href="add-recipe.html" class="nav-link">+ Add Recipe</a></li>
+                <li><a href="meal-plan.html" class="nav-link">Meal Planner</a></li>
+                <li><a href="shopping-list.html" class="nav-link">Shopping List</a></li>
+                <li><a href="favourites.html" class="nav-link active">Favourites</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="/swagger-ui.html" target="_blank" class="nav-link" style="color: var(--secondary); font-weight: 600;">Swagger Docs ↗</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <div class="page-header">
+            <div class="page-title-group">
+                <h1>♥ Favourite Recipes</h1>
+                <p>Your curated collection of top dishes. Click the heart to add or remove any recipe.</p>
+            </div>
+            <a href="recipes.html" class="btn btn-secondary">← View All Recipes</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-input-group">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" class="search-input" placeholder="Search within favourite recipes...">
+            </div>
+            <div class="filter-group">
+                <select id="cuisine-filter" class="filter-select">
+                    <option value="">All Cuisines</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Grid of Favourite Recipes -->
+        <div id="recipes-grid" class="card-grid">
+            <!-- Populated by recipes.js using /recipes/favourites -->
+        </div>
+    </main>
+
+    <!-- Shared Recipe View Details Modal -->
+    <div class="modal-overlay" id="recipe-view-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title" id="recipe-modal-title">Recipe Details</h3>
+                <button class="modal-close" onclick="closeModal('recipe-view-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="recipe-modal-body">
+                <!-- Dynamic Content -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('recipe-view-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Plan Modal -->
+    <div class="modal-overlay" id="quick-plan-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Schedule Recipe to Meal Plan</h3>
+                <button class="modal-close" onclick="closeModal('quick-plan-modal')">&times;</button>
+            </div>
+            <form id="quick-plan-form">
+                <div class="modal-body">
+                    <input type="hidden" id="plan-recipe-id">
+                    <div class="form-group">
+                        <label class="form-label">Selected Recipe</label>
+                        <div id="plan-recipe-name-display" style="font-weight: 700; color: var(--primary); font-size: 1.1rem;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="plan-date">Scheduled Date <span class="required">*</span></label>
+                        <input type="date" id="plan-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="plan-meal-type">Meal Slot <span class="required">*</span></label>
+                        <select id="plan-meal-type" class="form-control" required>
+                            <option value="BREAKFAST">Breakfast</option>
+                            <option value="LUNCH">Lunch</option>
+                            <option value="DINNER">Dinner</option>
+                            <option value="SNACK">Snack</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('quick-plan-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm & Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div><strong>RecipeBox</strong> – Personal Recipe & Meal Planner</div>
+            <div>Built with Java Spring Boot, MySQL, HTML5 & Vanilla JavaScript</div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/recipes.js"></script>
+</body>
+</html>

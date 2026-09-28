@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weekly Meal Planner in RecipeBox. Organize breakfast, lunch, dinner and snacks for Monday through Sunday.">
+    <title>Weekly Meal Planner – RecipeBox</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Main Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">🍲</span>
+                <span>RecipeBox</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="recipes.html" class="nav-link">Recipes</a></li>
+                <li><a href="add-recipe.html" class="nav-link">+ Add Recipe</a></li>
+                <li><a href="meal-plan.html" class="nav-link active">Meal Planner</a></li>
+                <li><a href="shopping-list.html" class="nav-link">Shopping List</a></li>
+                <li><a href="favourites.html" class="nav-link">Favourites</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="/swagger-ui.html" target="_blank" class="nav-link" style="color: var(--secondary); font-weight: 600;">Swagger Docs ↗</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <div class="page-header">
+            <div class="page-title-group">
+                <h1>Weekly Meal Planner</h1>
+                <p>Plan meals from Monday through Sunday to automate grocery shopping and healthy eating</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+                <a href="shopping-list.html" class="btn btn-secondary">🛒 View Shopping List</a>
+                <button class="btn btn-primary" onclick="openAddMealModal(toISODate(new Date()), 'LUNCH')">+ Schedule Meal</button>
+            </div>
+        </div>
+
+        <!-- Week Navigator -->
+        <div class="planner-header">
+            <div class="planner-week-title" id="week-range-title">Loading week...</div>
+            <div class="planner-controls">
+                <button class="btn btn-secondary btn-sm" id="btn-prev-week">← Previous Week</button>
+                <button class="btn btn-secondary btn-sm" id="btn-current-week">Today / This Week</button>
+                <button class="btn btn-secondary btn-sm" id="btn-next-week">Next Week →</button>
+            </div>
+        </div>
+
+        <!-- 7-Day Weekly Calendar Grid -->
+        <div class="week-grid" id="week-columns-container">
+            <!-- Dynamically populated by meal-plan.js -->
+        </div>
+    </main>
+
+    <!-- Modal to Add/Schedule Meal Plan -->
+    <div class="modal-overlay" id="add-meal-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Schedule Meal</h3>
+                <button class="modal-close" onclick="closeModal('add-meal-modal')">&times;</button>
+            </div>
+            <form id="add-meal-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="modal-meal-date">Date <span class="required">*</span></label>
+                        <input type="date" id="modal-meal-date" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="modal-meal-type">Meal Slot <span class="required">*</span></label>
+                        <select id="modal-meal-type" class="form-control" required>
+                            <option value="BREAKFAST">Breakfast</option>
+                            <option value="LUNCH">Lunch</option>
+                            <option value="DINNER">Dinner</option>
+                            <option value="SNACK">Snack</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="modal-recipe-select">Recipe <span class="required">*</span></label>
+                        <select id="modal-recipe-select" class="form-control" required>
+                            <option value="">-- Choose a Recipe --</option>
+                        </select>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">
+                            Tip: Don't see what you want? <a href="add-recipe.html" target="_blank" style="color: var(--primary); text-decoration: underline;">Create a recipe first</a>.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('add-meal-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save to Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div><strong>RecipeBox</strong> – Personal Recipe & Meal Planner</div>
+            <div>Built with Java Spring Boot, MySQL, HTML5 & Vanilla JavaScript</div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/meal-plan.js"></script>
+</body>
+</html>
